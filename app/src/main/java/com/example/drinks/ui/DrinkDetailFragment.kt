@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.drinks.R
 
-class DetailDrinkFragment : Fragment() {
+class DrinkDetailFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
