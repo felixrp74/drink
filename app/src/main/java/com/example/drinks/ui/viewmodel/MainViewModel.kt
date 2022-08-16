@@ -11,7 +11,7 @@ class MainViewModel(private val repo: Repo):ViewModel() {
     val fectchDrinkList = liveData(Dispatchers.IO) {
         emit(Resource.Loading())
         try {
-            emit(repo.getDrinkList())
+            emit(repo.getDrinkList("margarita"))
         }catch (e:Exception){
             emit(Resource.Failure(e))
         }

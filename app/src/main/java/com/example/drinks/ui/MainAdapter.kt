@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.drinks.R
@@ -12,8 +13,14 @@ import com.example.drinks.base.BaseViewHolder
 import com.example.drinks.data.model.Drink
 import com.example.drinks.databinding.DrinkRowBinding
 
-class MainAdapter(private val context: Context, private val drinkList: List<Drink>) :
+class MainAdapter(private val context: Context, private val drinkList: List<Drink>,
+        private val itemClickListener:ItemClickListener
+                  ) :
     RecyclerView.Adapter<BaseViewHolder<*>>() {
+
+    interface ItemClickListener{
+        fun onClickDrink(drink: Drink)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         return MainViewHolder(
@@ -37,6 +44,9 @@ class MainAdapter(private val context: Context, private val drinkList: List<Drin
             Glide.with(context).load(item.image).centerCrop().into(binding.imageView)
             binding.tvTitle.text = item.name
             binding.tvDescription.text = item.description
+            binding.imageView.setOnClickListener {
+                itemClickListener.onClickDrink(item)
+            }
 //            binding.imageView.setOnClickListener {}
 
                 Log.d("CLICK", "CLICKING")

@@ -12,13 +12,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.drinks.R
 import com.example.drinks.data.model.DataSource
+import com.example.drinks.data.model.Drink
 import com.example.drinks.databinding.FragmentMainBinding
 import com.example.drinks.domain.RepoImpl
 import com.example.drinks.ui.viewmodel.MainViewModel
 import com.example.drinks.ui.viewmodel.VMFactory
 import com.example.drinks.vo.Resource
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), MainAdapter.ItemClickListener {
     private var _binding: FragmentMainBinding? = null
 
     // This property is only valid between onCreateView and
@@ -55,11 +56,12 @@ class MainFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     binding.pbCircle.visibility = View.GONE
-                    binding.rvDrink.adapter = MainAdapter(requireContext(), it.data)
+                    binding.rvDrink.adapter = MainAdapter(requireContext(), it.data, this)
                 }
                 is Resource.Failure -> {
                     binding.pbCircle.visibility = View.GONE
-                    Toast.makeText(requireContext(), "Error ${it.exception}",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Error ${it.exception}", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
@@ -72,6 +74,12 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onClickDrink(drink: Drink) {
+        val bundle = Bundle()
+        bundle.putParcelable("drink", drink)
+        findNavController().navigate(R.id.detailDrinkFragment2, bundle)
     }
 
 }
