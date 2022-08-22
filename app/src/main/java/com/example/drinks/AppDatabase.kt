@@ -9,7 +9,7 @@ import com.example.drinks.domain.DrinkDao
 
 @Database(entities = [DrinkEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun userDao(): DrinkDao
+    abstract fun drinkDao(): DrinkDao
 
     companion object {
         private var INSTANCE: AppDatabase? = null

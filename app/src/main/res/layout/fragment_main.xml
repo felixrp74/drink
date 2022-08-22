@@ -7,10 +7,18 @@
     android:gravity="center"
     tools:context=".ui.MainFragment">
 
+    <Button
+        android:id="@+id/btnFavoriteDrinks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Favorite Drinks" />
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+    </androidx.appcompat.widget.SearchView>
 
     <RelativeLayout
         android:id="@+id/pbCircle"

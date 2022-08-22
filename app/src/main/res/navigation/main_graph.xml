@@ -12,10 +12,18 @@
         <action
             android:id="@+id/action_mainFragment2_to_detailDrinkFragment2"
             app:destination="@id/detailDrinkFragment2" />
+        <action
+            android:id="@+id/action_mainFragment2_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailDrinkFragment2"
         android:name="com.example.drinks.ui.DrinkDetailFragment"
         android:label="fragment_detail_drink"
         tools:layout="@layout/fragment_detail_drink" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.drinks.ui.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
 </navigation>

@@ -6,10 +6,10 @@ import com.example.drinks.data.model.DrinkEntity
 @Dao
 interface DrinkDao {
     @Query("SELECT * FROM tragoEntity")
-    suspend fun getAllFavoriteDrinks():List<DrinkEntity>
+    suspend fun getAllFavoriteDrinksFromRoom():List<DrinkEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertFavorite(drinkEntity: DrinkEntity)
+    suspend fun insertFavoriteDrinkIntoRoom(drinkEntity: DrinkEntity)
 
     @Delete
     fun delete(drinkEntity: DrinkEntity)

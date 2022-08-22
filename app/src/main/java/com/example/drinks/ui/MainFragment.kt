@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.drinks.AppDatabase
 import com.example.drinks.R
 import com.example.drinks.data.model.DataSource
 import com.example.drinks.data.model.Drink
@@ -23,13 +24,17 @@ import com.example.drinks.ui.viewmodel.VMFactory
 import com.example.drinks.vo.Resource
 
 class MainFragment : Fragment(), MainAdapter.ItemClickListener {
+
+    private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSource(
+        AppDatabase.getInstance(requireActivity().applicationContext)))) }
+
     private var _binding: FragmentMainBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSource())) }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +52,10 @@ class MainFragment : Fragment(), MainAdapter.ItemClickListener {
         setupRecyclerView()
         setupSearchView()
         setupObservers()
+
+        binding.btnFavoriteDrinks.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment2_to_favoriteFragment)
+        }
 
 
     }
