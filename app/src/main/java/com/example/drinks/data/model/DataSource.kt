@@ -6,7 +6,7 @@ import com.example.drinks.vo.RetrofitClient
 
 class DataSource(private val appDatabase: AppDatabase) {
 
-    suspend fun getTragoByName(drinkName:String):Resource<List<Drink>>{
+    suspend fun getDrinkByName(drinkName:String):Resource<List<Drink>>{
         return Resource.Success(RetrofitClient.webservice.getDrinkByName(drinkName).drinkList)
     }
 

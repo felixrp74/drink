@@ -7,7 +7,7 @@ import com.example.drinks.vo.Resource
 
 class RepoImpl(val dataSource: DataSource):Repo {
     override suspend fun getDrinkList(drinkName:String): Resource<List<Drink>> {
-        return dataSource.getTragoByName(drinkName)
+        return dataSource.getDrinkByName(drinkName)
     }
 
     override suspend fun getFavoriteDrinkList(): Resource<List<DrinkEntity>> {

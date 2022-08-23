@@ -8,18 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.drinks.AppDatabase
-import com.example.drinks.R
 import com.example.drinks.data.model.DataSource
-import com.example.drinks.databinding.FragmentDetailDrinkBinding
+import com.example.drinks.data.model.Drink
 import com.example.drinks.databinding.FragmentFavoriteBinding
 import com.example.drinks.domain.RepoImpl
 import com.example.drinks.ui.viewmodel.MainViewModel
 import com.example.drinks.ui.viewmodel.VMFactory
 import com.example.drinks.vo.Resource
 
-class FavoriteFragment : Fragment() {
+class FavoriteFragment : Fragment(), MainAdapter.ItemClickListener  {
 
     private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSource(
         AppDatabase.getInstance(requireActivity().applicationContext))
@@ -50,8 +50,7 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupObservers()
-
-
+        setupRecyclerView()
 
     }
 
@@ -66,6 +65,14 @@ class FavoriteFragment : Fragment() {
                 is Resource.Success -> {
                     /*binding.pbCircle.visibility = View.GONE
                     binding.rvDrink.adapter = MainAdapter(requireContext(), it.data, this)*/
+                    binding.pbFavoriteCircle.visibility = View.GONE
+
+                    val drinkList = it.data.map {
+                        Drink(it.idDrink,it.image,it.name,it.description)
+                    }
+
+                    binding.rvFavoriteDrink.adapter = MainAdapter(requireContext(), drinkList, this)
+
                     Log.d("FAVORITE_DRINK_LIST", "RUN APP ${ it.data.size}")
                 }
                 is Resource.Failure -> {
@@ -84,4 +91,24 @@ class FavoriteFragment : Fragment() {
 
         }
     }
+
+    private fun setupRecyclerView() {
+        binding.rvFavoriteDrink.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvFavoriteDrink.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onClickDrink(drink: Drink) {
+        TODO("Not yet implemented")
+    }
+
 }
