@@ -19,7 +19,7 @@ class MainAdapter(private val context: Context, private val drinkList: List<Drin
     RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     interface ItemClickListener{
-        fun onClickDrink(drink: Drink)
+        fun onClickDrink(drink: Drink, position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
@@ -45,7 +45,7 @@ class MainAdapter(private val context: Context, private val drinkList: List<Drin
             binding.tvTitle.text = item.name
             binding.tvDescription.text = item.description
             binding.imageView.setOnClickListener {
-                itemClickListener.onClickDrink(item)
+                itemClickListener.onClickDrink(item, position)
             }
 //            binding.imageView.setOnClickListener {}
 

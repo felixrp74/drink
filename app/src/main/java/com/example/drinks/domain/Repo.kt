@@ -8,4 +8,5 @@ interface Repo {
     suspend fun getDrinkList(drinkName:String): Resource<List<Drink>>
     suspend fun getFavoriteDrinkList(): Resource<List<DrinkEntity>>
     suspend fun insertFavoriteDrink(drinkEntity: DrinkEntity)
+    suspend fun deleteFavoriteDrink(drinkEntity: DrinkEntity)
 }

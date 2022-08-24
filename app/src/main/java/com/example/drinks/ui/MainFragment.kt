@@ -9,13 +9,12 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.drinks.AppDatabase
 import com.example.drinks.R
-import com.example.drinks.data.model.DataSource
+import com.example.drinks.data.model.DataSourceImpl
 import com.example.drinks.data.model.Drink
 import com.example.drinks.databinding.FragmentMainBinding
 import com.example.drinks.domain.RepoImpl
@@ -25,7 +24,7 @@ import com.example.drinks.vo.Resource
 
 class MainFragment : Fragment(), MainAdapter.ItemClickListener {
 
-    private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSource(
+    private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSourceImpl(
         AppDatabase.getInstance(requireActivity().applicationContext)))) }
 
     private var _binding: FragmentMainBinding? = null
@@ -114,7 +113,7 @@ class MainFragment : Fragment(), MainAdapter.ItemClickListener {
         )
     }
 
-    override fun onClickDrink(drink: Drink) {
+    override fun onClickDrink(drink: Drink, position:Int) {
         val bundle = Bundle()
         bundle.putParcelable("drink", drink)
         findNavController().navigate(R.id.action_mainFragment2_to_detailDrinkFragment2, bundle)

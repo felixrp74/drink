@@ -11,8 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.drinks.AppDatabase
-import com.example.drinks.data.model.DataSource
+import com.example.drinks.data.model.DataSourceImpl
 import com.example.drinks.data.model.Drink
+import com.example.drinks.data.model.DrinkEntity
 import com.example.drinks.databinding.FragmentFavoriteBinding
 import com.example.drinks.domain.RepoImpl
 import com.example.drinks.ui.viewmodel.MainViewModel
@@ -21,7 +22,7 @@ import com.example.drinks.vo.Resource
 
 class FavoriteFragment : Fragment(), MainAdapter.ItemClickListener  {
 
-    private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSource(
+    private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSourceImpl(
         AppDatabase.getInstance(requireActivity().applicationContext))
     ))}
 
@@ -40,7 +41,7 @@ class FavoriteFragment : Fragment(), MainAdapter.ItemClickListener  {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         return binding.root
@@ -52,6 +53,7 @@ class FavoriteFragment : Fragment(), MainAdapter.ItemClickListener  {
         setupObservers()
         setupRecyclerView()
 
+
     }
 
     private fun setupObservers(){
@@ -60,7 +62,7 @@ class FavoriteFragment : Fragment(), MainAdapter.ItemClickListener  {
 
             when (it) {
                 is Resource.Loading -> {
-                    //binding.pbCircle.visibility = View.VISIBLE
+                    binding.pbFavoriteCircle.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
                     /*binding.pbCircle.visibility = View.GONE
@@ -76,7 +78,7 @@ class FavoriteFragment : Fragment(), MainAdapter.ItemClickListener  {
                     Log.d("FAVORITE_DRINK_LIST", "RUN APP ${ it.data.size}")
                 }
                 is Resource.Failure -> {
-                    //binding.pbCircle.visibility = View.GONE
+                    binding.pbFavoriteCircle.visibility = View.GONE
                     Toast.makeText(requireContext(), "Error ${it.exception}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -107,8 +109,12 @@ class FavoriteFragment : Fragment(), MainAdapter.ItemClickListener  {
         _binding = null
     }
 
-    override fun onClickDrink(drink: Drink) {
-        TODO("Not yet implemented")
+    override fun onClickDrink(drink: Drink, position:Int) {
+        val drinkEntity = DrinkEntity(drink.idDrink, drink.image,drink.name,drink.description)
+        viewModel.deleteFavoriteDrink(drinkEntity)
+        binding.rvFavoriteDrink.adapter?.notifyItemRemoved(position)
+
     }
+
 
 }

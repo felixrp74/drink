@@ -1,6 +1,7 @@
 package com.example.drinks.ui.viewmodel
 
 import androidx.lifecycle.*
+import com.example.drinks.data.model.Drink
 import com.example.drinks.data.model.DrinkEntity
 import com.example.drinks.domain.Repo
 import com.example.drinks.vo.Resource
@@ -42,6 +43,12 @@ class MainViewModel(private val repo: Repo):ViewModel() {
             emit(repo.getFavoriteDrinkList())
         }catch (e:Exception){
             emit(Resource.Failure(e))
+        }
+    }
+
+    fun deleteFavoriteDrink(drinkEntity: DrinkEntity){
+        viewModelScope.launch {
+            repo.deleteFavoriteDrink(drinkEntity)
         }
     }
 

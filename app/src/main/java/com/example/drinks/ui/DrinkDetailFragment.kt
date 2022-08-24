@@ -8,23 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.example.drinks.AppDatabase
-import com.example.drinks.R
-import com.example.drinks.data.model.DataSource
+import com.example.drinks.data.model.DataSourceImpl
 import com.example.drinks.data.model.Drink
 import com.example.drinks.data.model.DrinkEntity
 import com.example.drinks.databinding.FragmentDetailDrinkBinding
-import com.example.drinks.databinding.FragmentMainBinding
 import com.example.drinks.domain.RepoImpl
 import com.example.drinks.ui.viewmodel.MainViewModel
 import com.example.drinks.ui.viewmodel.VMFactory
-import kotlinx.coroutines.launch
 
 class DrinkDetailFragment : Fragment() {
 
-    private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSource(
+    private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSourceImpl(
         AppDatabase.getInstance(requireActivity().applicationContext)))) }
 
     private var _binding: FragmentDetailDrinkBinding? = null
