@@ -1,10 +1,9 @@
-package com.example.drinks.vo
+package com.example.drinks.data.vo
 
-import com.example.drinks.domain.WebService
+import com.example.drinks.data.source.service.WebService
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 object RetrofitClient {
 

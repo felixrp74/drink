@@ -2,7 +2,7 @@ package com.example.drinks.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.drinks.domain.Repo
+import com.example.drinks.data.source.Repo
 
 class VMFactory(private val repo: Repo):ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -1,13 +1,14 @@
-package com.example.drinks.data.model
+package com.example.drinks.data.source.remote
 
-import com.example.drinks.AppDatabase
-import com.example.drinks.domain.DataSource
-import com.example.drinks.vo.Resource
-import com.example.drinks.vo.RetrofitClient
+import com.example.drinks.data.vo.AppDatabase
+import com.example.drinks.data.model.Drink
+import com.example.drinks.data.model.DrinkEntity
+import com.example.drinks.data.vo.Resource
+import com.example.drinks.data.vo.RetrofitClient
 
 class DataSourceImpl(private val appDatabase: AppDatabase) : DataSource {
 
-    override suspend fun getDrinkByName(drinkName:String):Resource<List<Drink>>{
+    override suspend fun getDrinkByName(drinkName:String): Resource<List<Drink>> {
         return Resource.Success(RetrofitClient.webservice.getDrinkByName(drinkName).drinkList)
     }
 
@@ -15,7 +16,7 @@ class DataSourceImpl(private val appDatabase: AppDatabase) : DataSource {
         appDatabase.drinkDao().insertFavoriteDrinkIntoRoom(drinkEntity)
     }
 
-    override suspend fun getFavoriteDrinks():Resource<List<DrinkEntity>>{
+    override suspend fun getFavoriteDrinks(): Resource<List<DrinkEntity>> {
         return Resource.Success(appDatabase.drinkDao().getAllFavoriteDrinksFromRoom())
     }
 

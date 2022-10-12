@@ -12,28 +12,29 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.drinks.AppDatabase
+import com.example.drinks.data.vo.AppDatabase
 import com.example.drinks.R
-import com.example.drinks.data.model.DataSourceImpl
+import com.example.drinks.data.source.remote.DataSourceImpl
 import com.example.drinks.data.model.Drink
 import com.example.drinks.databinding.FragmentMainBinding
-import com.example.drinks.domain.RepoImpl
+import com.example.drinks.data.source.RepoImpl
 import com.example.drinks.ui.viewmodel.MainViewModel
 import com.example.drinks.ui.viewmodel.VMFactory
-import com.example.drinks.vo.Resource
+import com.example.drinks.data.vo.Resource
 
 class MainFragment : Fragment(), MainAdapter.ItemClickListener {
 
-    private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSourceImpl(
-        AppDatabase.getInstance(requireActivity().applicationContext)))) }
+    private val viewModel by viewModels<MainViewModel> { VMFactory(
+        RepoImpl(
+        DataSourceImpl(
+        AppDatabase.getInstance(requireActivity().applicationContext))
+    )
+    ) }
 
     private var _binding: FragmentMainBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +43,6 @@ class MainFragment : Fragment(), MainAdapter.ItemClickListener {
         // Inflate the layout for this fragment
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,8 +55,6 @@ class MainFragment : Fragment(), MainAdapter.ItemClickListener {
         binding.btnFavoriteDrinks.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment2_to_favoriteFragment)
         }
-
-
     }
 
     private fun setupObservers(){
@@ -83,7 +81,6 @@ class MainFragment : Fragment(), MainAdapter.ItemClickListener {
                     ).show()
                 }
             }
-
         }
     }
 

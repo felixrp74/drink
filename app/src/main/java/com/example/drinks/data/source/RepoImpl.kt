@@ -1,11 +1,11 @@
-package com.example.drinks.domain
+package com.example.drinks.data.source
 
-import com.example.drinks.data.model.DataSourceImpl
 import com.example.drinks.data.model.Drink
 import com.example.drinks.data.model.DrinkEntity
-import com.example.drinks.vo.Resource
+import com.example.drinks.data.source.remote.DataSourceImpl
+import com.example.drinks.data.vo.Resource
 
-class RepoImpl(val dataSourceImpl: DataSourceImpl):Repo {
+class RepoImpl(val dataSourceImpl: DataSourceImpl): Repo {
     override suspend fun getDrinkList(drinkName:String): Resource<List<Drink>> {
         return dataSourceImpl.getDrinkByName(drinkName)
     }

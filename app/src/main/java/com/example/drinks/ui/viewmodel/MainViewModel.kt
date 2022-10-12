@@ -1,10 +1,9 @@
 package com.example.drinks.ui.viewmodel
 
 import androidx.lifecycle.*
-import com.example.drinks.data.model.Drink
 import com.example.drinks.data.model.DrinkEntity
-import com.example.drinks.domain.Repo
-import com.example.drinks.vo.Resource
+import com.example.drinks.data.source.Repo
+import com.example.drinks.data.vo.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

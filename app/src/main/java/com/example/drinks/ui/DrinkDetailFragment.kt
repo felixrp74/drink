@@ -9,24 +9,27 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.example.drinks.AppDatabase
-import com.example.drinks.data.model.DataSourceImpl
+import com.example.drinks.data.vo.AppDatabase
+import com.example.drinks.data.source.remote.DataSourceImpl
 import com.example.drinks.data.model.Drink
 import com.example.drinks.data.model.DrinkEntity
 import com.example.drinks.databinding.FragmentDetailDrinkBinding
-import com.example.drinks.domain.RepoImpl
+import com.example.drinks.data.source.RepoImpl
 import com.example.drinks.ui.viewmodel.MainViewModel
 import com.example.drinks.ui.viewmodel.VMFactory
 
 class DrinkDetailFragment : Fragment() {
 
-    private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSourceImpl(
-        AppDatabase.getInstance(requireActivity().applicationContext)))) }
+    private val viewModel by viewModels<MainViewModel> { VMFactory(
+        RepoImpl(
+        DataSourceImpl(
+        AppDatabase.getInstance(requireActivity().applicationContext))
+    )
+    ) }
 
     private var _binding: FragmentDetailDrinkBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
     private lateinit var drink: Drink
@@ -67,7 +70,11 @@ class DrinkDetailFragment : Fragment() {
 
             Toast.makeText(requireContext(), " DRINK SAVED", Toast.LENGTH_SHORT).show()
         }
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

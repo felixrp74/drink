@@ -47,10 +47,7 @@ class MainAdapter(private val context: Context, private val drinkList: List<Drin
             binding.imageView.setOnClickListener {
                 itemClickListener.onClickDrink(item, position)
             }
-//            binding.imageView.setOnClickListener {}
-
-                Log.d("CLICK", "CLICKING")
-                //itemClickListener.onTragoClick(item)
+            Log.d("CLICK", "CLICKING")
         }
 
     }

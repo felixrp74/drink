@@ -1,4 +1,4 @@
-package com.example.drinks.vo
+package com.example.drinks.data.vo
 
 sealed class Resource<out T> {
     class Loading<out T> : Resource<T>()
