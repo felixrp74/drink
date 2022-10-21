@@ -12,11 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_normal"
         android:src="@drawable/ic_baseline_save_24"
-        app:layout_constraintBottom_toTopOf="@+id/rvDrink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/searchViewCard"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
         tools:ignore="ContentDescription" />
 
     <com.google.android.material.card.MaterialCardView
@@ -54,9 +53,10 @@
 
     <RelativeLayout
         android:id="@+id/pbCircle"
-        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
@@ -68,18 +68,23 @@
             app:layout_constraintTop_toTopOf="parent" />
     </RelativeLayout>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvDrink"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_small"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchViewCard"
+        app:layout_constraintTop_toBottomOf="@+id/searchViewCard">
 
-        />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDrink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

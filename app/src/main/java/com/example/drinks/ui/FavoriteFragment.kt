@@ -57,7 +57,7 @@ class FavoriteFragment : Fragment(), MainAdapter.ItemClickListener  {
 
     private fun setupObservers(){
 
-        viewModel.getFavoriteDrinkList().observe(viewLifecycleOwner) {
+        viewModel.getFavoriteDrinkList().observe(viewLifecycleOwner) { it ->
 
             when (it) {
                 is Resource.Loading -> {
@@ -66,8 +66,8 @@ class FavoriteFragment : Fragment(), MainAdapter.ItemClickListener  {
                 is Resource.Success -> {
                     binding.pbFavoriteCircle.visibility = View.GONE
 
-                    val drinkList = it.data.map {
-                        Drink(it.idDrink,it.image,it.name,it.description)
+                    val drinkList = it.data.map { drink ->
+                        Drink(drink.idDrink,drink.image,drink.name,drink.description)
                     }
 
                     binding.rvFavoriteDrink.adapter = MainAdapter(requireContext(), drinkList, this)

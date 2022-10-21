@@ -55,6 +55,14 @@ class MainFragment : Fragment(), MainAdapter.ItemClickListener {
         binding.btnFavoriteDrinks.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment2_to_favoriteFragment)
         }
+
+        setSwipe()
+    }
+
+    private fun setSwipe(){
+        binding.swipe.setOnRefreshListener{
+            setupObservers()
+        }
     }
 
     private fun setupObservers(){
@@ -63,13 +71,16 @@ class MainFragment : Fragment(), MainAdapter.ItemClickListener {
             when (it) {
                 is Resource.Loading -> {
                     binding.pbCircle.visibility = View.VISIBLE
+                    binding.swipe.isRefreshing = true
                 }
                 is Resource.Success -> {
                     binding.pbCircle.visibility = View.GONE
+                    binding.swipe.isRefreshing = false
                     binding.rvDrink.adapter = MainAdapter(requireContext(), it.data, this)
                 }
                 is Resource.Failure -> {
                     binding.pbCircle.visibility = View.GONE
+                    binding.swipe.isRefreshing = false
                     Toast.makeText(requireContext(), "Error ${it.exception}", Toast.LENGTH_SHORT)
                         .show()
                 }
