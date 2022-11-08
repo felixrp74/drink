@@ -36,7 +36,7 @@ class MainViewModel(private val repo: Repo):ViewModel() {
         }
     }
 
-    fun getFavoriteDrinkList()= liveData(Dispatchers.IO) {
+    fun getFavoriteDrinkList() = liveData(Dispatchers.IO) {
         emit(Resource.Loading())
         try {
             emit(repo.getFavoriteDrinkList())

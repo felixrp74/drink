@@ -7,13 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.size
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.drinks.data.vo.AppDatabase
 import com.example.drinks.data.source.remote.DataSourceImpl
 import com.example.drinks.data.model.Drink
-import com.example.drinks.data.model.DrinkEntity
 import com.example.drinks.databinding.FragmentFavoriteBinding
 import com.example.drinks.data.source.RepoImpl
 import com.example.drinks.ui.viewmodel.MainViewModel
@@ -105,10 +105,26 @@ class FavoriteFragment : Fragment(), MainAdapter.ItemClickListener  {
         _binding = null
     }
 
-    override fun onClickDrink(drink: Drink, position:Int) {
-        val drinkEntity = DrinkEntity(drink.idDrink, drink.image,drink.name,drink.description)
+    override fun onClickDrink(drink: Drink, position:Int,itemView: View) {
+
+        /*val drinkEntity = DrinkEntity(drink.idDrink, drink.image,drink.name,drink.description)
         viewModel.deleteFavoriteDrink(drinkEntity)
         binding.rvFavoriteDrink.adapter?.notifyItemRemoved(position)
 
+        viewModeldrin
+*/
+        //viewModel.deleteFavoriteDrink(DrinkEntity(drink.idDrink, drink.image,drink.name,drink.description))
+
+        binding.rvFavoriteDrink.adapter?.notifyItemRemoved(position)
+
+        binding.rvFavoriteDrink.adapter?.notifyItemRangeChanged(position, binding.rvFavoriteDrink.size)
+        //holder.itemView.visibility = View.GONE
+
+        itemView.visibility = View.GONE
+
+        Log.d("FRAGMENT", drink.toString())
+        Log.d("POSITION", position.toString())
     }
+
+
 }

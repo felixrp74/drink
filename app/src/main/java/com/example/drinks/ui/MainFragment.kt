@@ -2,13 +2,14 @@ package com.example.drinks.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +37,7 @@ class MainFragment : Fragment(), MainAdapter.ItemClickListener {
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +47,7 @@ class MainFragment : Fragment(), MainAdapter.ItemClickListener {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -52,9 +55,39 @@ class MainFragment : Fragment(), MainAdapter.ItemClickListener {
         setupSearchView()
         setupObservers()
 
-        binding.btnFavoriteDrinks.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment2_to_favoriteFragment)
-        }
+//        binding.btnFavoriteDrinks.setOnClickListener {
+//            findNavController().navigate(R.id.action_mainFragment2_to_favoriteFragment)
+//        }
+
+        //=========================================
+        // The usage of an interface lets you inject your own implementation
+        val menuHost: MenuHost = requireActivity()
+
+        // Add menu items without using the Fragment Menu APIs
+        // Note how we can tie the MenuProvider to the viewLifecycleOwner
+        // and an optional Lifecycle.State (here, RESUMED) to indicate when
+        // the menu should be visible
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.menubar, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu selection
+                when(menuItem.itemId){
+
+                    R.id.action_favorite ->  {
+                            findNavController().navigate(R.id.action_mainFragment2_to_favoriteFragment)
+
+
+                    }
+
+                }
+                return true
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        //=========================================
 
         setSwipe()
     }
@@ -121,7 +154,7 @@ class MainFragment : Fragment(), MainAdapter.ItemClickListener {
         )
     }
 
-    override fun onClickDrink(drink: Drink, position:Int) {
+    override fun onClickDrink(drink: Drink, position:Int,itemView: View) {
         val bundle = Bundle()
         bundle.putParcelable("drink", drink)
         findNavController().navigate(R.id.action_mainFragment2_to_detailDrinkFragment2, bundle)
@@ -131,4 +164,22 @@ class MainFragment : Fragment(), MainAdapter.ItemClickListener {
         super.onDestroyView()
         _binding = null
     }
+/*
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menubar, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        when(menuItem.itemId){
+
+            R.id.action_favorite ->  binding.btnFavoriteDrinks.setOnClickListener {
+                findNavController().navigate(R.id.action_mainFragment2_to_favoriteFragment)
+            }
+
+        }
+
+        return true
+    }
+    */
+
 }

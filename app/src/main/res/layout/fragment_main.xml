@@ -7,17 +7,15 @@
     android:padding="16dp"
     tools:context=".ui.MainFragment">
 
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/searchViewCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_normal"
         android:layout_marginVertical="@dimen/margin_small"
         app:cardCornerRadius="@dimen/search_view_radius"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/btnFavoriteDrinks"
+        android:layout_alignParentEnd="true"
         >
 
         <SearchView
@@ -33,15 +31,6 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnFavoriteDrinks"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/btn_star"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        tools:ignore="ContentDescription" />
 
     <include
         android:id="@+id/empty_container"
